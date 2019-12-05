@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+
+
+// global variables
+int input;
+int money = 100;
+string inventory[10];
+int inventoryNums[10] = { 0,0,0,0,0,0,0,0,0,0 };
+
+void Shop();//funct Decla
+
+int main() {
+	Shop();//funct call
+
+	
+
+
+
+}//endmain
+
+void Shop() {
+	int input;
+	int shopNums[5] = { 5,5,5,5,5 };//keeps track of how many are left
+	string shopItems[5] = { "Manga","Tv","Subscription","Figurine","Outfit" };
+	int shopPrices[5] = { 10,50,30,20,100 };
+
+
+	do {
+		cout << "Welcome to the shop. You have " << money << " coins." << endl;
+		cout << "Press 1 to view items for sale. Press 2 to purchase the item. 3 to see your inventory, 0 to quit the shop." << endl;
+		cin >> input;
+
+		switch (input) {//cancel shop
+		case 0: //quit shop
+			cout << "Thanks 4 Shopping" << endl;
+			break;
+
+		case 1://C items
+			cout << "Here's what we have: " << endl;
+			for (int i = 0; i < 4; i++)
+				cout << shopNums[i] << "  " << shopItems[i] << "  (" << shopPrices[i] << " Coins)" << endl;
+			break;
+
+		case 2://Purchase items
+
+			cout << "Press 1 to purchase Manga, 2 for a Tv, 3 for a Subscription. 4 for a Figurine. 5 for Outfit" << endl;
+			cin >> input;
+
+			if (shopNums[input - 1] < 0)//check if there are any in stock
+				cout << "Sorry this item is out of shop" << endl;
+
+			else if (money < shopPrices[input - 1])//check if player has sufficient funds
+				cout << "Sorry you lack the funds needed" << endl;
+
+			else {
+				inventoryNums[input - 1] += 1;//add one to player inventory Numb
+				inventory[input - 1] = shopItems[input - 1];// place item in player inventory
+				shopNums[input - 1] -= 1;//subtract from shop supplies
+				money -= shopPrices[input - 1];//subtract player money
+
+			}
+
+			break;
+
+		case 3://view player inventory
+			cout << "Here's your current inventory: " << endl;
+			for (int i = 0; i < 5; i++)
+				if (inventoryNums[i] > 0)
+					cout << inventory[i] << " : " << inventoryNums[i] << endl;
+			break;
+
+		default://if uuser says nonsense
+			cout << "sorrry i dont understand" << endl;
+
+		}//switch
+
+
+	} while (input != 0);
+}
